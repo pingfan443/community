@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  # 项目的根地址,需要打上根地址
+  servlet:
+    context-path: /community
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_community?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 3306
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # 连接池的最大连接数
+      maximum-pool-size: 15
+      minimum-idle: 5
+      # 超时时间
+      idle-timeout: 30000
+  thymeleaf:
+    # 开发过程中，模板缓存关闭，有利于调试。
+    cache: false
+mybatis:
+  #classpath指的是classes文件夹，将mapper下的xml文件放到target类路径下
+  mapper-locations: classpath:mapper/*.xml
+  # 声明实体类所在的包名,这样写在配置文件中就不用写包名了
+  type-aliases-package: com.zero.mycommunity.entity
+  configuration:
+    # 启用自动生成组件，id自增长
+    useGeneratedKeys: true
+    #匹配headerUrl ==header_url
+    map-underscore-to-camel-case: true
+
+# 设置日志打印级别为debug，会在控制台打印mysql语句，方便mapper文件写错查找，com.zero.mycommunity指所在包名
+logging:
+  level:
+    com.zero.mycommunity: debug
